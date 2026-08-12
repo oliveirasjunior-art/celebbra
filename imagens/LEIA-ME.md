@@ -6,12 +6,15 @@ site mostra o emoji de reserva no lugar, sem quebrar o layout):
 
 | Arquivo esperado             | Item no catálogo          |
 |-------------------------------|----------------------------|
-| mesa-cadeira-kit.jpg           | Kit Mesa + 8 Cadeiras       |
+| mesa-cadeira-kit.jpg           | Kit Mesa Quadrada + 4 Cadeiras |
+| kit-4-mesas-redondas.jpg       | Kit 4 Mesas Redondas        |
 | pula-pula-castelo.jpg          | Pula-pula Castelo Médio     |
 | toto-profissional.jpg          | Totó Profissional           |
 | galpao-tenda-6x6.jpg           | Galpão / Tenda 6x6m         |
 | piscina-bolinhas.jpg           | Piscina de Bolinhas         |
 | cadeira-tiffany.jpg            | Cadeira Tiffany Branca      |
+| banheiro-quimico.jpg           | Banheiro Químico            |
+| atracoes-eletronicas.jpg       | Atrações Eletrônicas (Air Game + Basquete) |
 
 ## Recomendações técnicas
 

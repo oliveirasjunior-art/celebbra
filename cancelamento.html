@@ -14,13 +14,16 @@
 <header>
   <div class="nav">
     <a href="index.html" class="logo"><span class="dot"></span>Celebbra</a>
-    <nav class="links">
+    <nav class="links" id="nav-links">
       <a href="index.html#catalogo">Catálogo</a>
       <a href="index.html#agendar">Agendar</a>
       <a href="index.html#como-funciona">Como funciona</a>
       <a href="sobre.html">Sobre nós</a>
       <a href="index.html#contato">Contato</a>
     </nav>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" onclick="alternarMenu()">
+      <span></span><span></span><span></span>
+    </button>
     <a class="cta-btn" href="index.html#agendar">Fazer orçamento</a>
   </div>
 </header>
@@ -35,6 +38,7 @@
   <span class="updated-note">Modelo inicial — ajuste os prazos e percentuais conforme a realidade do seu negócio</span>
 
   <h2>1. Prazos para cancelamento com reembolso</h2>
+  <div class="policy-table-wrap">
   <table class="policy-table">
     <tr><th>Quando o cliente cancela</th><th>Reembolso</th></tr>
     <tr><td>Com 7 dias ou mais de antecedência do evento</td><td>100% do valor pago</td></tr>
@@ -42,6 +46,7 @@
     <tr><td>Menos de 48 horas de antecedência</td><td>Sem reembolso</td></tr>
     <tr><td>Não comparecimento / não recebimento no dia combinado</td><td>Sem reembolso</td></tr>
   </table>
+  </div>
 
   <h2>2. Cancelamento por parte da Celebbra</h2>
   <p>Se por qualquer motivo não pudermos cumprir a reserva confirmada (item indisponível por avaria, por exemplo), o cliente recebe o reembolso integral do valor pago, sem necessidade de solicitação.</p>
@@ -91,6 +96,14 @@
 </footer>
 
 <a class="whats-float" href="https://wa.me/5521987820926?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Celebbra%20e%20quero%3A%0A1%EF%B8%8F%E2%83%A3%20Fazer%20um%20or%C3%A7amento%0A2%EF%B8%8F%E2%83%A3%20Tirar%20uma%20d%C3%BAvida%20sobre%20disponibilidade%0A3%EF%B8%8F%E2%83%A3%20Falar%20sobre%20uma%20reserva%20que%20j%C3%A1%20fiz%0A%0AResponda%20com%20o%20n%C3%BAmero%20da%20op%C3%A7%C3%A3o%20%3A%29" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">💬</a>
+
+
+<script>
+  function alternarMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+</script>
 
 </body>
 </html>

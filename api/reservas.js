@@ -1,7 +1,8 @@
 // api/reservas.js
 // Responde em POST /api/reservas.
-// Confirma disponibilidade, grava a reserva na planilha e devolve o link
-// de checkout do Mercado Pago para o front-end redirecionar o cliente.
+// Recebe um pedido com um ou mais itens (carrinho), confirma disponibilidade
+// de cada item, grava o pedido na planilha e devolve o link de checkout do
+// Mercado Pago para o front-end redirecionar o cliente.
 
 const crypto = require("crypto");
 const { checkAvailability, criarReserva } = require("../lib/googleSheets");
@@ -17,27 +18,38 @@ module.exports = async (req, res) => {
       cliente,
       whatsapp,
       email,
-      idItem,
-      quantidade,
+      itens, // [{ idItem, nome, quantidade, precoUnitario }]
       dataRetirada,
       dataEntrega,
-      valorTotal,
-      descricao,
+      taxaEntrega,
     } = req.body;
 
-    const disponibilidade = await checkAvailability(idItem, dataRetirada, dataEntrega, quantidade);
-    if (!disponibilidade.disponivel) {
-      return res.status(409).json({ erro: "Item indisponível nas datas selecionadas", ...disponibilidade });
+    if (!Array.isArray(itens) || itens.length === 0) {
+      return res.status(400).json({ erro: "O pedido precisa ter pelo menos um item." });
+    }
+
+    // Checa disponibilidade de cada item antes de confirmar o pedido inteiro
+    for (const it of itens) {
+      const disponibilidade = await checkAvailability(it.idItem, dataRetirada, dataEntrega, it.quantidade);
+      if (!disponibilidade.disponivel) {
+        return res.status(409).json({
+          erro: `"${it.nome}" está indisponível nas datas selecionadas (restam ${disponibilidade.quantidadeDisponivel}).`,
+          idItem: it.idItem,
+          ...disponibilidade,
+        });
+      }
     }
 
     const idReserva = `RES-${Date.now()}-${crypto.randomBytes(3).toString("hex")}`;
+
+    const valorItens = itens.reduce((soma, it) => soma + Number(it.precoUnitario) * Number(it.quantidade), 0);
+    const valorTotal = valorItens + Number(taxaEntrega || 0);
 
     await criarReserva({
       idReserva,
       cliente,
       whatsapp,
-      idItem,
-      quantidade,
+      itens,
       dataRetirada,
       dataEntrega,
       valorTotal,
@@ -45,8 +57,8 @@ module.exports = async (req, res) => {
 
     const pagamento = await criarPreferencia({
       idReserva,
-      descricao: descricao || `Aluguel - ${idItem}`,
-      valorTotal,
+      itens,
+      taxaEntrega,
       emailCliente: email,
     });
 

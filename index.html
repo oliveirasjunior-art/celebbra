@@ -14,14 +14,17 @@
 <header>
   <div class="nav">
     <div class="logo"><span class="dot"></span>Celebbra</div>
-    <nav class="links">
+    <nav class="links" id="nav-links">
       <a href="#catalogo">Catálogo</a>
       <a href="#agendar">Agendar</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="sobre.html">Sobre nós</a>
       <a href="#contato">Contato</a>
     </nav>
-    <button class="cta-btn">Fazer orçamento</button>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu" onclick="alternarMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="cta-btn" href="#agendar">Fazer orçamento</a>
   </div>
 </header>
 
@@ -32,7 +35,7 @@
     <p class="lead" style="font-weight:600; color:var(--coral-dark); font-family:'Fredoka'; font-size:1.15rem; margin-bottom:6px;">Transformando momentos em celebrações.</p>
     <p class="lead">Alugue mesas, cadeiras, pula-pula, totó e estruturas para eventos com entrega e retirada agendadas. Pagamento por Pix, débito ou crédito, confirmação na hora.</p>
     <div class="hero-actions">
-      <button class="cta-btn">Ver disponibilidade</button>
+      <a class="cta-btn" href="#catalogo">Ver disponibilidade</a>
       <a class="cta-btn ghost" href="https://wa.me/5521987820926" target="_blank" rel="noopener" style="display:inline-flex; align-items:center;">Falar no WhatsApp</a>
     </div>
     <div class="trust-row">
@@ -63,81 +66,102 @@
       <h2>O que você pode reservar</h2>
       <p>Itens organizados por categoria, com disponibilidade em tempo real vinculada ao nosso controle de estoque.</p>
     </div>
-    <div class="catalog-tabs">
-      <div class="tab active">Todos</div>
-      <div class="tab">Mesas e Cadeiras</div>
-      <div class="tab">Brinquedos</div>
-      <div class="tab">Estruturas e Galpões</div>
+    <div class="catalog-tabs" id="catalog-tabs">
+      <div class="tab active" data-cat="todos">Todos</div>
+      <div class="tab" data-cat="mesas">Mesas e Cadeiras</div>
+      <div class="tab" data-cat="brinquedos">Brinquedos</div>
+      <div class="tab" data-cat="estruturas">Estruturas e Galpões</div>
+      <div class="tab" data-cat="eletronicos">Atrações Eletrônicas</div>
     </div>
-    <div class="grid">
+    <div class="grid" id="catalog-grid">
 
-      <div class="card">
+      <div class="card" data-cat="mesas">
         <div class="card-img a">🪑<img src="imagens/mesa-cadeira-kit.jpg" alt="Kit Mesa Quadrada + 4 Cadeiras" loading="lazy" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Kit Mesa Quadrada + 4 Cadeiras</h3>
           <p class="desc">Mesa quadrada com toalha e 4 cadeiras dobráveis. Ideal para mesas menores e confraternizações.</p>
           <div class="price">R$ 30 <small>/ diária, por kit</small></div>
-          <div class="card-foot"><span class="stock">18 kits em estoque</span><button class="add-btn">Adicionar</button></div>
+          <div class="card-foot"><span class="stock">18 kits em estoque</span><button class="add-btn" onclick="adicionarAoCarrinho('KIT-MESA-CAD-QUAD','Kit Mesa Quadrada + 4 Cadeiras',30)">Adicionar</button></div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-cat="mesas">
         <div class="card-img c">🍽️<img src="imagens/kit-4-mesas-redondas.jpg" alt="Kit 4 Mesas Redondas" loading="lazy" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Kit 4 Mesas Redondas</h3>
           <p class="desc">Conjunto com 4 mesas redondas, com toalha. Ideal para dividir os convidados em grupos ou compor o salão.</p>
           <div class="price">R$ 100 <small>/ diária, o kit</small></div>
-          <div class="card-foot"><span class="stock">10 kits em estoque</span><button class="add-btn">Adicionar</button></div>
+          <div class="card-foot"><span class="stock">10 kits em estoque</span><button class="add-btn" onclick="adicionarAoCarrinho('KIT-4-MESAS-RED','Kit 4 Mesas Redondas',100)">Adicionar</button></div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-cat="brinquedos">
         <div class="card-img b">🏰<img src="imagens/pula-pula-castelo.jpg" alt="Pula-pula Castelo Médio" loading="lazy" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Pula-pula Castelo Médio</h3>
           <p class="desc">4x4m, inflável com rede de proteção, capacidade até 8 crianças simultâneas.</p>
           <div class="price">R$ 180 <small>/ diária</small></div>
-          <div class="card-foot"><span class="stock">3 unidades</span><button class="add-btn">Adicionar</button></div>
+          <div class="card-foot"><span class="stock">3 unidades</span><button class="add-btn" onclick="adicionarAoCarrinho('PULA-01','Pula-pula Castelo Médio',180)">Adicionar</button></div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-cat="brinquedos">
         <div class="card-img c">⚽<img src="imagens/toto-profissional.jpg" alt="Totó Profissional" loading="lazy" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Totó Profissional</h3>
           <p class="desc">Mesa de pebolim em madeira, tamanho oficial, com bolas inclusas.</p>
           <div class="price">R$ 90 <small>/ diária</small></div>
-          <div class="card-foot"><span class="stock">5 unidades</span><button class="add-btn">Adicionar</button></div>
+          <div class="card-foot"><span class="stock">5 unidades</span><button class="add-btn" onclick="adicionarAoCarrinho('TOTO-01','Totó Profissional',90)">Adicionar</button></div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-cat="estruturas">
         <div class="card-img a">⛺<img src="imagens/galpao-tenda-6x6.jpg" alt="Galpão / Tenda 6x6m" loading="lazy" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Galpão / Tenda 6x6m</h3>
           <p class="desc">Estrutura de lona para cobertura de área de festa, com montagem inclusa.</p>
           <div class="price">R$ 320 <small>/ diária</small></div>
-          <div class="card-foot"><span class="stock">2 unidades</span><button class="add-btn">Adicionar</button></div>
+          <div class="card-foot"><span class="stock">2 unidades</span><button class="add-btn" onclick="adicionarAoCarrinho('GALPAO-6X6','Galpão / Tenda 6x6m',320)">Adicionar</button></div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-cat="brinquedos">
         <div class="card-img b">🎈<img src="imagens/piscina-bolinhas.jpg" alt="Piscina de Bolinhas" loading="lazy" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Piscina de Bolinhas</h3>
           <p class="desc">3x3m com 500 bolinhas coloridas inclusas. Higienizada a cada devolução.</p>
           <div class="price">R$ 120 <small>/ diária</small></div>
-          <div class="card-foot"><span class="stock">4 unidades</span><button class="add-btn">Adicionar</button></div>
+          <div class="card-foot"><span class="stock">4 unidades</span><button class="add-btn" onclick="adicionarAoCarrinho('PISCINA-BOLINHAS','Piscina de Bolinhas',120)">Adicionar</button></div>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card" data-cat="mesas">
         <div class="card-img c">🪑<img src="imagens/cadeira-tiffany.jpg" alt="Cadeira Tiffany Branca" loading="lazy" onerror="this.remove()"></div>
         <div class="card-body">
           <h3>Cadeira Tiffany Branca</h3>
           <p class="desc">Cadeira avulsa estilo Tiffany, ideal para casamentos e eventos formais.</p>
           <div class="price">R$ 8 <small>/ diária, unidade</small></div>
-          <div class="card-foot"><span class="stock">120 unidades</span><button class="add-btn">Adicionar</button></div>
+          <div class="card-foot"><span class="stock">120 unidades</span><button class="add-btn" onclick="adicionarAoCarrinho('CADEIRA-TIFFANY','Cadeira Tiffany Branca',8)">Adicionar</button></div>
+        </div>
+      </div>
+
+      <div class="card" data-cat="estruturas">
+        <div class="card-img a">🚻<img src="imagens/banheiro-quimico.jpg" alt="Banheiro Químico" loading="lazy" onerror="this.remove()"></div>
+        <div class="card-body">
+          <h3>Banheiro Químico</h3>
+          <p class="desc">Cabine individual com vaso sanitário, papel higiênico e higienizador de mãos. Ideal para eventos ao ar livre.</p>
+          <div class="price">R$ 180 <small>/ diária, unidade</small></div>
+          <div class="card-foot"><span class="stock">6 unidades</span><button class="add-btn" onclick="adicionarAoCarrinho('BANHEIRO-QUIMICO','Banheiro Químico',180)">Adicionar</button></div>
+        </div>
+      </div>
+
+      <div class="card" data-cat="eletronicos">
+        <div class="card-img b">🕹️<img src="imagens/atracoes-eletronicas.jpg" alt="Atrações Eletrônicas para Eventos" loading="lazy" onerror="this.remove()"></div>
+        <div class="card-body">
+          <h3>Atrações Eletrônicas para Eventos</h3>
+          <p class="desc">Combo com Air Game (mesa de hóquei de ar) e Basquete Eletrônico Duplo — dois jogos que animam festas de todas as idades.</p>
+          <div class="price">R$ 250 <small>/ diária, o combo</small></div>
+          <div class="card-foot"><span class="stock">4 combos em estoque</span><button class="add-btn" onclick="adicionarAoCarrinho('ATRACOES-ELETRONICAS','Atrações Eletrônicas (Air Game + Basquete)',250)">Adicionar</button></div>
         </div>
       </div>
 
@@ -157,53 +181,51 @@
       <div>
         <div class="field-group">
           <label>Nome completo</label>
-          <input type="text" placeholder="Seu nome">
+          <input type="text" id="r-nome" placeholder="Seu nome">
         </div>
         <div class="two-col">
           <div class="field-group">
             <label>WhatsApp</label>
-            <input type="text" placeholder="(21) 90000-0000">
+            <input type="text" id="r-whats" placeholder="(21) 90000-0000">
           </div>
           <div class="field-group">
             <label>CEP do evento</label>
-            <input type="text" placeholder="00000-000">
+            <input type="text" id="r-cep" placeholder="00000-000">
           </div>
         </div>
         <div class="two-col">
           <div class="field-group">
             <label>Data de retirada / entrega dos itens</label>
-            <input type="date">
+            <input type="date" id="r-retirada" onchange="renderizarResumo()">
           </div>
           <div class="field-group">
             <label>Data de devolução / coleta</label>
-            <input type="date">
+            <input type="date" id="r-entrega" onchange="renderizarResumo()">
           </div>
         </div>
         <div class="field-group">
-          <label>Itens desejados</label>
-          <select>
-            <option>Kit Mesa Quadrada + 4 Cadeiras — 6x</option>
-            <option>Kit 4 Mesas Redondas — 1x</option>
-            <option>Pula-pula Castelo Médio — 1x</option>
-            <option>Totó Profissional — 1x</option>
-          </select>
+          <label>Itens selecionados</label>
+          <div id="lista-itens" style="background:var(--cream); border:2px solid var(--cream-2); border-radius:10px; padding:14px; font-size:0.9rem; color:var(--ink-70);">
+            Nenhum item ainda — clique em "Adicionar" no catálogo acima.
+          </div>
         </div>
-        <div class="avail-note">✅ Disponibilidade confirmada para as datas selecionadas</div>
+        <div class="avail-note" id="avail-note">✅ Adicione itens e datas para calcular o total</div>
       </div>
 
       <div class="summary-box">
         <h3>Resumo do pedido</h3>
-        <div class="sum-row"><span>Kit Mesa Quadrada + 4 Cadeiras (6x)</span><span>R$ 180,00</span></div>
-        <div class="sum-row"><span>Pula-pula Castelo Médio</span><span>R$ 180,00</span></div>
-        <div class="sum-row"><span>Taxa de entrega e retirada</span><span>R$ 60,00</span></div>
-        <div class="sum-row total"><span>Total</span><span>R$ 420,00</span></div>
+        <div id="resumo-linhas">
+          <div class="sum-row"><span>Nenhum item selecionado</span><span>R$ 0,00</span></div>
+        </div>
+        <div class="sum-row total"><span>Total</span><span id="resumo-total">R$ 0,00</span></div>
 
         <div class="pay-methods">
           <div class="pay-chip">💠 Pix</div>
           <div class="pay-chip">💳 Crédito</div>
           <div class="pay-chip">💳 Débito</div>
         </div>
-        <button class="cta-btn" style="width:100%;">Pagar com Mercado Pago</button>
+        <button class="cta-btn" id="btn-pagar" style="width:100%;" onclick="finalizarReserva()">Pagar com Mercado Pago</button>
+        <p id="reserva-status" style="margin-top:10px; font-size:0.85rem; font-weight:600;"></p>
       </div>
     </div>
   </div>
@@ -272,8 +294,148 @@
 </section>
 
 <script>
-  // Envia o formulário para a API, que registra na aba "Contatos" do Sheets
-  // e dispara o e-mail de notificação (ver backend/server.js e backend/email.js).
+  // ---------- Menu mobile ----------
+  function alternarMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  // Fecha o menu automaticamente ao clicar em um link (evita ficar aberto após navegar)
+  document.querySelectorAll('#nav-links a').forEach((link) => {
+    link.addEventListener('click', () => {
+      document.getElementById('nav-links').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
+    });
+  });
+
+  // ---------- Filtro do catálogo por categoria ----------
+  document.querySelectorAll('#catalog-tabs .tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('#catalog-tabs .tab').forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      document.querySelectorAll('#catalog-grid .card').forEach((card) => {
+        card.style.display = (cat === 'todos' || card.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  });
+
+  // ---------- Carrinho de itens (memória da página — some ao recarregar) ----------
+  const TAXA_ENTREGA = 60;
+  let carrinho = {}; // { idItem: { nome, preco, quantidade } }
+
+  function adicionarAoCarrinho(idItem, nome, preco) {
+    if (!carrinho[idItem]) {
+      carrinho[idItem] = { nome, preco, quantidade: 0 };
+    }
+    carrinho[idItem].quantidade += 1;
+    renderizarResumo();
+    // rola até o formulário de agendamento pra pessoa ver que o item entrou
+    document.getElementById('agendar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function removerDoCarrinho(idItem) {
+    delete carrinho[idItem];
+    renderizarResumo();
+  }
+
+  function calcularDiarias() {
+    const retirada = document.getElementById('r-retirada').value;
+    const entrega = document.getElementById('r-entrega').value;
+    if (!retirada || !entrega) return 1;
+    const dias = Math.round((new Date(entrega) - new Date(retirada)) / (1000 * 60 * 60 * 24));
+    return dias > 0 ? dias : 1;
+  }
+
+  function renderizarResumo() {
+    const listaItensEl = document.getElementById('lista-itens');
+    const resumoLinhasEl = document.getElementById('resumo-linhas');
+    const resumoTotalEl = document.getElementById('resumo-total');
+    const avisoEl = document.getElementById('avail-note');
+    const ids = Object.keys(carrinho);
+    const diarias = calcularDiarias();
+
+    if (ids.length === 0) {
+      listaItensEl.innerHTML = 'Nenhum item ainda — clique em "Adicionar" no catálogo acima.';
+      resumoLinhasEl.innerHTML = '<div class="sum-row"><span>Nenhum item selecionado</span><span>R$ 0,00</span></div>';
+      resumoTotalEl.textContent = 'R$ 0,00';
+      avisoEl.textContent = '✅ Adicione itens e datas para calcular o total';
+      return;
+    }
+
+    listaItensEl.innerHTML = ids.map((id) => {
+      const it = carrinho[id];
+      return `<div style="display:flex; justify-content:space-between; align-items:center; padding:4px 0;">
+        <span>${it.nome} × ${it.quantidade}</span>
+        <a href="#" onclick="removerDoCarrinho('${id}'); return false;" style="color:var(--coral-dark); font-weight:700; font-size:0.8rem;">remover</a>
+      </div>`;
+    }).join('');
+
+    let subtotal = 0;
+    resumoLinhasEl.innerHTML = ids.map((id) => {
+      const it = carrinho[id];
+      const valorItem = it.preco * it.quantidade * diarias;
+      subtotal += valorItem;
+      return `<div class="sum-row"><span>${it.nome} (${it.quantidade}x, ${diarias} diária${diarias > 1 ? 's' : ''})</span><span>R$ ${valorItem.toFixed(2).replace('.', ',')}</span></div>`;
+    }).join('') + `<div class="sum-row"><span>Taxa de entrega e retirada</span><span>R$ ${TAXA_ENTREGA.toFixed(2).replace('.', ',')}</span></div>`;
+
+    const total = subtotal + TAXA_ENTREGA;
+    resumoTotalEl.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    avisoEl.textContent = '✅ Disponibilidade será confirmada ao finalizar a reserva';
+  }
+
+  // ---------- Finalizar reserva (chama a API que fala com Sheets + Mercado Pago) ----------
+  async function finalizarReserva() {
+    const nome = document.getElementById('r-nome').value;
+    const whatsapp = document.getElementById('r-whats').value;
+    const dataRetirada = document.getElementById('r-retirada').value;
+    const dataEntrega = document.getElementById('r-entrega').value;
+    const statusEl = document.getElementById('reserva-status');
+    const ids = Object.keys(carrinho);
+
+    if (!nome || !whatsapp || !dataRetirada || !dataEntrega || ids.length === 0) {
+      statusEl.style.color = '#C43D2B';
+      statusEl.textContent = 'Preencha nome, WhatsApp, as duas datas e adicione ao menos um item.';
+      return;
+    }
+
+    const diarias = calcularDiarias();
+    const itens = ids.map((id) => ({
+      idItem: id,
+      nome: carrinho[id].nome,
+      quantidade: carrinho[id].quantidade,
+      precoUnitario: carrinho[id].preco * diarias,
+    }));
+
+    statusEl.style.color = 'var(--ink-70)';
+    statusEl.textContent = 'Verificando disponibilidade e gerando pagamento...';
+
+    try {
+      const resp = await fetch('/api/reservas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cliente: nome,
+          whatsapp,
+          itens,
+          dataRetirada,
+          dataEntrega,
+          taxaEntrega: TAXA_ENTREGA,
+        }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.erro || 'Não foi possível concluir a reserva.');
+
+      statusEl.style.color = 'var(--seal)';
+      statusEl.textContent = 'Redirecionando para o pagamento...';
+      window.location.href = data.linkPagamento;
+    } catch (e) {
+      statusEl.style.color = '#C43D2B';
+      statusEl.textContent = e.message || 'Erro ao processar a reserva. Tente novamente ou chame no WhatsApp.';
+    }
+  }
+
+  // ---------- Formulário "Fale conosco" ----------
+  // Envia para a API, que registra na aba "Contatos" do Sheets e dispara o e-mail (ver lib/email.js).
   async function enviarContato() {
     const payload = {
       nome: document.getElementById('c-nome').value,
